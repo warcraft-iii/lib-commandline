@@ -6,7 +6,7 @@ local Player = require('lib.oop.player')
 local Timer = require('lib.oop.timer')
 
 ---@class CommandLine: object
-local CommandLine = class('CommandLine')
+local CommandLine = class('__CommandLine'):new()
 
 ---@class CommandHandler: table
 ---@field triggerPlayer Player
@@ -17,7 +17,7 @@ local CommandHandler
 ---@type CommandHandler[]
 local _HANDLER = {}
 
----addOption
+---<static> addOption
 ---@param player Player
 ---@param command string
 ---@param cb fun(player:Player, str:String)
@@ -36,7 +36,7 @@ function CommandLine:addOption(player, command, cb)
     end
 end
 
----addOptionAnyPlayer
+---<static> addOptionAnyPlayer
 ---@param command string
 ---@param cb fun(player:Player, str:String)
 function CommandLine:addOptionAnyPlayer(command, cb)
@@ -46,7 +46,7 @@ end
 local function onChatEvent()
     local p = Event.getTriggerPlayer()
     local text = Event.getEventPlayerChatString()
-    local command, data = string.split(text, " ", false, 1)
+    local command, data = table.unpack(string.split(text, " ", false, 1))
     local h = _HANDLER[command]
     if h and (not h.triggerPlayer or h.triggerPlayer == p) then
         h.onEvent(p, data)
@@ -57,7 +57,6 @@ end
 local function onLateInit()
     local t = Trigger:create()
     t:addAction(onChatEvent)
-
     for i = 0, 23 do
         t:registerPlayerChatEvent(Player:get(i), "", false)
     end
