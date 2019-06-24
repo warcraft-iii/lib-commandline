@@ -43,6 +43,15 @@ function CommandLine:addOptionAnyPlayer(command, cb)
     self:addOption(nil, command, cb)
 end
 
+---<static> exec
+---@param command string
+function CommandLine:exec(command, data)
+    local h = _HANDLER[command]
+    if h then
+        h.onEvent(nil, data)
+    end
+end
+
 local function onChatEvent()
     local p = Event.getTriggerPlayer()
     local text = Event.getEventPlayerChatString()
