@@ -1,9 +1,9 @@
-require('lib.base')
+require('lib.stdlib.base')
 
-local Trigger = require('lib.oop.trigger')
-local Event = require('lib.oop.event')
-local Player = require('lib.oop.player')
-local Timer = require('lib.oop.timer')
+local Trigger = require('lib.stdlib.oop.trigger')
+local Event = require('lib.stdlib.oop.event')
+local Player = require('lib.stdlib.oop.player')
+local Timer = require('lib.stdlib.oop.timer')
 
 ---@class CommandLine: object
 local CommandLine = class('__CommandLine'):new()
